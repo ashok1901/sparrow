@@ -6,6 +6,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * Given few digits, not necessarily unique. What different numbers one
+ * can form by using these digits once such that repeating digit should
+ * not be at adjacent to each other.
+ * 
+ * @author Ashok
+ */
 public class DigitsCombinations {
 
     private static int comb(int prevDigit, Map<Integer, Integer> dataSet,

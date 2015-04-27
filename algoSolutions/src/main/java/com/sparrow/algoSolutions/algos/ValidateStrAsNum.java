@@ -5,6 +5,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Check if given string is a valid number. 
+ * For example: -12.33, +2233, -122 are valid string as number though
+ * -12.33.44 -+333.33 are not.
+ *
+ * @author Ashok
+ *
+ */
 public class ValidateStrAsNum 
 {
     private static Map<Character, Integer> charDigitMap = 

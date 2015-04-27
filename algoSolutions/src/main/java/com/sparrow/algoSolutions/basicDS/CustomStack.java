@@ -2,6 +2,11 @@ package com.sparrow.algoSolutions.basicDS;
 
 import java.util.Iterator;
 
+/**
+ * Stack implementation. This is just a wrapper around linked list.
+ * 
+ * @author Ashok
+ */
 public class CustomStack<T>
 {
     private final int capacity;

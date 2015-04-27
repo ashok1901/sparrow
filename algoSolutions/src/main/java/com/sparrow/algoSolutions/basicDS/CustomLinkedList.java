@@ -2,6 +2,14 @@ package com.sparrow.algoSolutions.basicDS;
 
 import java.util.Iterator;
 
+/**
+ * Linked list implementation.
+ * Caution: Not tested extensively.
+ * 
+ * @author Ashok 
+ *
+ * @param <T> : Data type of value in each link of the linked list
+ */
 public class CustomLinkedList<T> implements Iterable<T> 
 {
     public static class Node<T>

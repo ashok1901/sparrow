@@ -1,5 +1,13 @@
 package com.sparrow.algoSolutions.algos;
 
+/**
+ * Algorithm to compute square root of a given number. 
+ * <br><B>Note:</B> If given number is not a perfect square then it compute
+ * floorInt(sqaureRoot(n)). IOW, only integer part of sqaure root is needed.
+ * <br>For example: squareRoot(25) = 4, squareRoot(24) = squareRoot(23) = 4
+ * 
+ * @author Ashok
+ */
 public class SquareRoot 
 {
 

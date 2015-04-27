@@ -2,7 +2,11 @@ package com.sparrow.algoSolutions.algos;
 
 import com.sparrow.algoSolutions.basicDS.CustomStack;
 
-
+/**
+ * Reverse a given stack in-place.
+ * 
+ * @author Ashok
+ */
 public class ReverseStackInPlace {
 
     private static void reverseStackRecursive(CustomStack<String> s) {
