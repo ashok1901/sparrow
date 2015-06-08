@@ -101,12 +101,14 @@ public class CustomLinkedList<T> implements Iterable<T>
             return null;
         }
 
-        T headValue = head.value;
+        Node<T> headNode = head;
         head = head.next;
+        headNode.next = null;
         if (head == null) {
             tail = null;
         }
-        return headValue;
+
+        return headNode.value;
     }
 
     public T readHead()
