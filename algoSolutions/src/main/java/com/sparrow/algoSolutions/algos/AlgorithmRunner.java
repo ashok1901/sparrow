@@ -5,6 +5,27 @@ import java.util.Set;
 
 public class AlgorithmRunner 
 {
+    private static void runInsertSpace()
+    {
+        Set<String> dict = new HashSet<String>();
+        dict.add("cat");
+        dict.add("cats");
+        dict.add("and");dict.add("sand");
+        dict.add("dog");
+        System.out.println(Algorithm.insertSpacesDP("catsanddog", dict));
+        
+        Set<String> dict2 = new HashSet<String>();
+        dict2.add("i");dict2.add("am");
+        dict2.add("student");dict2.add("from");dict2.add("water");dict2.add("loo");
+        dict2.add("fromwater");
+        System.out.println(Algorithm.insertSpacesDP("iamstudentfromwaterloo", dict2));
+
+    }
+    
+    private static void printAllParanthesis() {
+        Algorithm.printAllParenthesis(new StringBuilder(), 2, 2);
+    }
+
     public static void main(String[] args) 
     {
 //        int[] arr = new int[] {-1, 3, 4, -12, -2, -11, -5, -3};
@@ -38,17 +59,7 @@ public class AlgorithmRunner
 //        int[] a = new int[] {1, 2, 3, 4, 5, 6, 7, 12, 31, 44, 34, 56, 77, 22, 36, 76, 12, 35};
 //        
 //        System.out.println(Algorithm.printSubset(a, -1, new ArrayList<Integer>()));
-        Set<String> dict = new HashSet<String>();
-        dict.add("cat");
-        dict.add("cats");
-        dict.add("and");dict.add("sand");
-        dict.add("dog");
-        System.out.println(Algorithm.insertSpaces("catsanddog", dict));
-        
-        Set<String> dict2 = new HashSet<String>();
-        dict2.add("i");dict2.add("am");
-        dict2.add("student");dict2.add("from");dict2.add("water");dict2.add("loo");
-        dict2.add("fromwater");
-        System.out.println(Algorithm.insertSpaces("iamstudentfromwaterloo", dict2));
+        runInsertSpace();
+        //printAllParanthesis();
     }
 }

@@ -146,6 +146,42 @@ public class Algorithm
      * @param dict
      * @return
      */
+    public static List<String> insertSpacesDP(String str, Set<String> dict)
+    {
+        int n = str.length();
+        List<List<String>> L = new ArrayList<List<String>>();
+        for (int i = 0; i < n; i++) {
+            L.add(i, new ArrayList<String>());
+        }
+
+        for (int current = 0; current < n; current++) {
+            List<String> currentList = new ArrayList<String>();
+            String tillCurrentStr = str.substring(0, current + 1);
+            if (dict.contains(tillCurrentStr)) {
+                currentList.add(tillCurrentStr);
+            }
+
+            for (int prev = current - 1 ; prev > 0; prev--) {
+                String subStr = str.substring(prev, current + 1);
+                List<String> tillPrev = L.get(prev - 1);
+                if (!tillPrev.isEmpty() && dict.contains(subStr)) {
+                    for (String s : tillPrev) {
+                        currentList.add(s + " " + subStr);
+                    }
+                }
+            }
+            L.add(current, currentList);
+        }
+
+        return L.get(n - 1);
+    }
+
+    /**
+     * Tested for simple examples
+     * @param str
+     * @param dict
+     * @return
+     */
     public static List<String> insertSpaces(String str, Set<String> dict)
     {
         List<String> strs = new ArrayList<String>();
@@ -175,34 +211,17 @@ public class Algorithm
 
     private static char OPEN_PARANTHESIS = '(';
     private static char CLOSE_PARANTHESIS = ')';
-//    public static List<String> paranthesis(Map<Character, Integer> mp) {
-//        if (mp.get(OPEN_PARANTHESIS) != mp.get(CLOSE_PARANTHESIS)) {
-//            throw new RuntimeException("count mismatch");
-//        }
-//
-//        if (mp.get(OPEN_PARANTHESIS) == 1) {
-//            List<String> st = new ArrayList<String>();
-//            st.add("()");
-//            return st;
-//        }
-//
-//        StringBuilder sb = new StringBuilder();
-//        int count = mp.get(OPEN_PARANTHESIS);
-//        --count;
-//        mp.put(OPEN_PARANTHESIS, count);
-//        mp.put(CLOSE_PARANTHESIS, count);
-//        List<String> st = paranthesis(mp);
-//        sb.append(OPEN_PARANTHESIS).append(paranthesis(mp)).append(CLOSE_PARANTHESIS);
-//        sb.append(OPEN_PARANTHESIS).append(CLOSE_PARANTHESIS).append(paranthesis(mp));
-//        sb.append(paranthesis(mp)).append(OPEN_PARANTHESIS).append(CLOSE_PARANTHESIS);
-//
-//        return sb.toString();
-//    }
+    public static void printAllParenthesis(StringBuilder sb, int open, int close) {
+        if (open == 0 && close == 0) {
+            System.out.println(sb.toString());
+            return;
+        }
 
-//    public static <T> BinaryTree<T> buildBinaryTreeFromAncestorMatrix(T[][] ancestors) {
-//        
-//        BinaryTree<Integer> bt = new BinaryTree<Integer>(12);
-//
-//        return bt;
-//    }
+        if (open < close) {
+            printAllParenthesis(sb.append(CLOSE_PARANTHESIS), open, close - 1);
+        } 
+        if (open > 0) {
+            printAllParenthesis(sb.append(OPEN_PARANTHESIS), open - 1, close);
+        }
+    }
 }
