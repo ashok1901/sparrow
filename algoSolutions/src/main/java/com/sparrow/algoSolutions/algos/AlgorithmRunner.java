@@ -1,5 +1,6 @@
 package com.sparrow.algoSolutions.algos;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,12 @@ public class AlgorithmRunner
     
     private static void printAllParanthesis() {
         Algorithm.printAllParenthesis(new StringBuilder(), 2, 2);
+    }
+
+    private static void runBinarySearchUnknownLength() {
+        int[] arr = new int[]{1, 3, 5, 6, 78, 64, 34, 99};
+        Arrays.sort(arr);
+        System.out.println(Algorithm.binarySearchUnknownLength(arr, 63));
     }
 
     public static void main(String[] args) 
@@ -59,7 +66,8 @@ public class AlgorithmRunner
 //        int[] a = new int[] {1, 2, 3, 4, 5, 6, 7, 12, 31, 44, 34, 56, 77, 22, 36, 76, 12, 35};
 //        
 //        System.out.println(Algorithm.printSubset(a, -1, new ArrayList<Integer>()));
-        runInsertSpace();
-        //printAllParanthesis();
+        // runInsertSpace();
+        // printAllParanthesis();
+        runBinarySearchUnknownLength();
     }
 }

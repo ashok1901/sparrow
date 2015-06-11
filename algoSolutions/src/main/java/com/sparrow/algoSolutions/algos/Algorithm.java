@@ -209,15 +209,55 @@ public class Algorithm
         return strs;
     }
 
+    private static boolean isOverflow(int[] arr, int mid) {
+        try {
+            int x = arr[mid];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Tested for couple of simple cases.
+     * @param arr
+     * @param x
+     * @return
+     */
+    public static int binarySearchUnknownLength(int[] arr, int x) 
+    {
+        int start = 0;
+        int end = 0;
+        while(start <= end) {
+            int mid = start + (end - start)/2;
+            if (isOverflow(arr, mid)) {
+                end = mid;
+            } else if (arr[mid] == x) {
+                return mid;
+            } else if (arr[mid] < x) {
+                start = end;
+                end = (end == 0) ? 1 : 2*end;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Not working
+     */
     private static char OPEN_PARANTHESIS = '(';
     private static char CLOSE_PARANTHESIS = ')';
     public static void printAllParenthesis(StringBuilder sb, int open, int close) {
-        if (open == 0 && close == 0) {
+        if (close == 0) {
             System.out.println(sb.toString());
             return;
         }
 
-        if (open < close) {
+        if (open > close) {
             printAllParenthesis(sb.append(CLOSE_PARANTHESIS), open, close - 1);
         } 
         if (open > 0) {
