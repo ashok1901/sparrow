@@ -24,7 +24,15 @@ public class AlgorithmRunner
     }
     
     private static void printAllParanthesis() {
-        Algorithm.printAllParenthesis(new StringBuilder(), 2, 2);
+        Set<String> results1 = Algorithm.allParanthesis(3);
+        Set<String> results2 = Algorithm.paranthesis(3);
+        System.out.println(results1.size() + " " + results2.size());
+        System.out.println("Comparison ...");
+        for (String val : results1) {
+            if(!results2.contains(val)) {
+                System.out.println(val);
+            }
+        }
     }
 
     private static void runBinarySearchUnknownLength() {
@@ -33,6 +41,31 @@ public class AlgorithmRunner
         System.out.println(Algorithm.binarySearchUnknownLength(arr, 63));
     }
 
+    private static void runCandiesDistribution()
+    {
+        int[] r = new int[]{1,2,2};
+        System.out.println(Algorithm.candies(r));
+    }
+
+    private static void runTop3() {
+        int[] data = new int[]{1, 3, 5, 6, 78, 64, 34, 99};
+        int[] res = Algorithm.top3(data);
+        for (int x : res) {
+            System.out.print(x + " ");
+        }
+    }
+
+    private static void runRotatedLookup() {
+        int[] data = new int[] {13, 17, 21, 31, 1, 7, 9};
+        int index = Algorithm.rotatedSortedLookup(data, 13);
+        System.out.println((index != -1 ? data[index] : null) + " at index " + index);
+
+        // Not rotated
+        data = new int[] {13, 17, 21, 31, 34, 56, 78, 90};
+        index = Algorithm.rotatedSortedLookup(data, 13);
+        System.out.println((index != -1 ? data[index] : null) + " at index " + index);
+
+    }
     public static void main(String[] args) 
     {
 //        int[] arr = new int[] {-1, 3, 4, -12, -2, -11, -5, -3};
@@ -68,6 +101,9 @@ public class AlgorithmRunner
 //        System.out.println(Algorithm.printSubset(a, -1, new ArrayList<Integer>()));
         // runInsertSpace();
         // printAllParanthesis();
-        runBinarySearchUnknownLength();
+        //runBinarySearchUnknownLength();
+        //runCandiesDistribution();
+        //runTop3();
+        runRotatedLookup();
     }
 }

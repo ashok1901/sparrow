@@ -1,8 +1,9 @@
 package com.sparrow.algoSolutions.algos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.sparrow.algoSolutions.basicDS.BinaryTree.BTreeNode;
@@ -246,22 +247,195 @@ public class Algorithm
         return -1;
     }
 
+//    public static int countPrintChars(int n) {
+//        if (n <= 4) {
+//            return n;
+//        }
+//        int max = n;
+//        for (int i = n - 3; i >= 1; i--) {
+//            max = Math.max(max, 2*countPrintChars(i) + countPrintChars(n));
+//        }
+//    }
+
     /**
-     * Not working
+     * working
      */
     private static char OPEN_PARANTHESIS = '(';
     private static char CLOSE_PARANTHESIS = ')';
-    public static void printAllParenthesis(StringBuilder sb, int open, int close) {
-        if (close == 0) {
-            System.out.println(sb.toString());
+    private static void printAllParenthesis(char[] data, int pos, 
+                                           int open, int close, int n, Set<String> results) 
+    {
+        if (close == n) {
+            results.add(new String(data));
+            System.out.println(data);
             return;
+        } else {
+            if (open > close) {
+                data[pos] = CLOSE_PARANTHESIS;
+                printAllParenthesis(data, pos + 1, open, close + 1, n, results);
+            } 
+
+            if (open < n) {
+                data[pos] = OPEN_PARANTHESIS;
+                printAllParenthesis(data, pos + 1, open + 1, close, n, results);
+            }
+        }
+    }
+
+    /**
+     * NOT WORKING !!!!!!!!!!!!
+     * 
+     * @param n
+     * @return
+     */
+    public static Set<String> allParanthesis(int n) {
+        Set<String> results = new HashSet<String>();
+        printAllParenthesis(new char[2*n], 0, 0, 0, n, results);
+
+        return results;
+    }
+
+    public static Set<String> paranthesis(int n) {
+        char[] data = new char[2*n];
+        Set<String> res = new HashSet<String>();
+        for (int i = 0; i < n; i++) {
+            int front = i;
+            int tail = 2*n - i -1;
+            data[front] = OPEN_PARANTHESIS;
+            data[tail] = CLOSE_PARANTHESIS;
+        }
+        String out = new String(data);
+        System.out.println(out);
+
+        res.add(out);
+
+        int toMove = n;
+        for(int i = 1; i <= n; i++) {
+
+            int nextToMove = toMove + 1;
+            for (int j = 1; j <= n - i; j++) {
+                // n - 1 left shifts
+                char tmp = data[toMove];
+                data[toMove] = data[toMove - 1];
+                data[toMove - 1] = tmp;
+                toMove = toMove - 1;
+
+                out = new String(data);
+                System.out.println(out);
+                res.add(out);
+            }
+            toMove = nextToMove;
         }
 
-        if (open > close) {
-            printAllParenthesis(sb.append(CLOSE_PARANTHESIS), open, close - 1);
-        } 
-        if (open > 0) {
-            printAllParenthesis(sb.append(OPEN_PARANTHESIS), open - 1, close);
+        return res;
+    }
+
+    /**
+     * Not working not tested
+     * @param r
+     * @return
+     */
+    public static int candies(int[] r) {
+        int prev = 1;
+        int total = 1;
+        for (int i = 1; i < r.length; i++) {
+            if (r[i] > r[i - 1]) {
+                prev++;
+                
+            } else {
+                prev = 1;
+            }
+            total += prev;
+        }
+
+        return total;
+    }
+
+    private static void updateTop3(int[] res, int x) {
+        if (x <= res[2]) {
+            return;
+        } else if (x >= res[0]) {
+            res[2] = res[1];
+            res[1] = res[0];
+            res[0] = x;
+
+        } else if (x >= res[1]) {
+            res[2] = res[1];
+            res[1] = x;
+
+        } else {
+            // Now no need to check equality
+            res[2] = x;
+        }
+    }
+
+    public static int[] top3(int[] data) {
+        int[] res = new int[] {Integer.MIN_VALUE, 
+                               Integer.MIN_VALUE, 
+                               Integer.MIN_VALUE};
+
+        if (data == null || data.length < 3) {
+            return data;
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            updateTop3(res, data[i]);
+        }
+
+        return res;
+    }
+    
+    private static int findPartition(int[] data, int s, int e) {
+        if (s == e) {
+            return -1;
+        }
+        if (e - s == 1) {
+            // Only two number left
+            if (data[s] > data[e]) {
+                return s;
+            } else {
+                return -1;
+            }
+        }
+
+        int mid = s + (e - s)/2;
+        if (data[s] < data[mid]) {
+            return findPartition(data, mid, e);
+        } else {
+            return findPartition(data, s, mid);
+        }
+    }
+
+    private static int binarySearch(int[] data, int x, int s, int e) {
+        while (s <= e) {
+            int mid = s + (e - s)/2;
+            if (data[mid] == x) {
+                return mid;
+            } else if (data[mid] > x) {
+                e = mid - 1;
+            } else {
+                s = mid + 1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int rotatedSortedLookup(int[] data, int x) {
+        int end = data.length - 1;
+        int pivot = findPartition(data, 0, end);
+
+        if (pivot == -1) {
+            // Not rotated
+            return binarySearch(data, x, 0, end);
+        }
+
+        if (data[0] <= x && data[pivot] >= x) {
+            return binarySearch(data, x, 0, pivot);
+        } else if (data[end] >= x) {
+            return binarySearch(data, x, pivot + 1, end);
+        } else {
+            return -1;
         }
     }
 }
